@@ -1,0 +1,39 @@
+body {
+  background-color: #222;
+  width: 100vw;
+  height: 100vh;
+  margin: 0;
+  padding: 0;
+}
+
+.canvas-container {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: linear-gradient(
+    -45deg,
+    rgba(18, 127, 154, 0.8869922969187675) 0%,
+    rgba(144, 58, 185, 0.7945553221288515) 50%,
+    rgba(255, 109, 0, 0.8421743697478992) 100%
+  );
+  animation: grid 10s ease infinite;
+  background-size: 200% 200%;
+}
+
+@keyframes grid {
+    0% {
+		background-position: 0% 50%;
+	}
+    
+	50% {
+		background-position: 100% 50%;
+	}
+
+	100% {
+		background-position: 0% 50%;
+	}
+}
