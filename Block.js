@@ -1,25 +1,45 @@
+import {
+  OFFSET,
+  CANVAS_WIDTH,
+  CANVAS_HEIGHT,
+  UNIT_WIDTH,
+  UNIT_HEIGHT,
+  context,
+} from "./canvas.js";
+
 class Block {
   pos;
+  color;
+  type;
   img;
-  shape;
+  parts;
 
   constructor(pos, color, type) {
     this.pos = pos;
-    this.getImg(color);
-    this.defineShape(type);
+    this.color = color;
+    this.type = type;
+    this.img = document.getElementById(`block-${color}`);
+    this.initParts(this.type);
   }
 
-  getImg(color) {
-    switch (color) {
-      case "blue":
-        this.img = document.getElementById("block_blue.png");
+  draw() {
+    for (let row = 0; row < this.parts.length; row++) {
+      for (let col = 0; col < this.parts[row].length; col++) {
+        if (this.parts[row][col] === 1) {
+          context.drawImage(
+            img,
+            col * UNIT_WIDTH + OFFSET + this.pos.x,
+            row * UNIT_HEIGHT + OFFSET + this.pos.y
+          );
+        }
+      }
     }
   }
 
-  defineShape(type) {
+  initParts(type) {
     switch (type) {
       case 0:
-        this.shape = [
+        this.parts = [
           [1, 0, 0, 0],
           [1, 0, 0, 0],
           [1, 0, 0, 0],
@@ -27,7 +47,7 @@ class Block {
         ];
         break;
       case 1:
-        this.shape = [
+        this.parts = [
           [0, 1, 0, 0],
           [0, 1, 0, 0],
           [1, 1, 0, 0],
@@ -35,7 +55,7 @@ class Block {
         ];
         break;
       case 3:
-        this.shape = [
+        this.parts = [
           [0, 1, 0, 0],
           [0, 1, 0, 0],
           [0, 1, 1, 0],
@@ -43,7 +63,7 @@ class Block {
         ];
         break;
       case 4:
-        this.shape = [
+        this.parts = [
           [0, 0, 0, 0],
           [0, 1, 1, 0],
           [0, 1, 1, 0],
@@ -51,7 +71,7 @@ class Block {
         ];
         break;
       case 5:
-        this.shape = [
+        this.parts = [
           [0, 0, 0, 0],
           [0, 0, 1, 1],
           [0, 1, 1, 0],
@@ -59,7 +79,7 @@ class Block {
         ];
         break;
       case 6:
-        this.shape = [
+        this.parts = [
           [0, 0, 0, 0],
           [0, 1, 1, 0],
           [0, 0, 1, 1],
@@ -67,7 +87,7 @@ class Block {
         ];
         break;
       case 7:
-        this.shape = [
+        this.parts = [
           [0, 0, 0, 0],
           [0, 1, 0, 0],
           [1, 1, 1, 0],

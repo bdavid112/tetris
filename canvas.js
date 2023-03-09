@@ -1,11 +1,13 @@
 import "./Block.js";
 
 const canvas = document.getElementById("canvas");
-const context = canvas.getContext("2d");
+export const context = canvas.getContext("2d");
 
-const OFFSET = 2;
-const UNIT_WIDTH = 40;
-const UNIT_HEIGHT = 40;
+export const OFFSET = 2;
+export const CANVAS_WIDTH = 402;
+export const CANVAS_HEIGHT = 402;
+export const UNIT_WIDTH = 40;
+export const UNIT_HEIGHT = 40;
 
 context.fillStyle = "#222";
 
@@ -19,5 +21,3 @@ for (let row = 0; row < 20; row++) {
     );
   }
 }
-
-let block = new Block({ x: 0, y: 0 }, "blue", 0);
