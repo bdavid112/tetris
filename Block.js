@@ -60,11 +60,16 @@ export class Block {
 
   updateX() {
     if (getUserInput() === -1 && this.pos.x - UNIT_WIDTH < 0) return;
-    if (getUserInput() === 1 && this.pos.x + UNIT_WIDTH > UNIT_WIDTH * CANVAS_WIDTH) return;
+    if (
+      getUserInput() === 1 &&
+      this.pos.x + UNIT_WIDTH > (UNIT_WIDTH * CANVAS_WIDTH) - (this.width * UNIT_WIDTH)
+    )
+      return;
     if (!this.onGround) {
       this.pos.x += getUserInput() * UNIT_WIDTH;
       setUserInput(0);
     }
+    console.log(this.pos.x);
   }
 
   updateY() {
