@@ -10,25 +10,22 @@ function gameLoop(time) {
   render();
 }
 
-const blocks = [];
+let actualBlock = randomBlock();
+const blocksOnGround = [];
 
 function update(time) {
-  createNewBlock();
-  blocks.forEach((block) => {
-    block.update(time);
-  });
+  actualBlock.update(time, blocksOnGround);
+  if (actualBlock.isOnGround()) {
+    blocksOnGround.push(actualBlock);
+    actualBlock = randomBlock();
+  }
 }
 
 function render() {
   clearCanvas();
   drawGrid();
-  blocks.forEach((block) => {
+  actualBlock.draw(context);
+  blocksOnGround.forEach((block) => {
     block.draw(context);
   });
-}
-
-function createNewBlock() {
-  if (blocks.length === 0 || blocks[blocks.length - 1].isOnGround()) {
-    blocks.push(randomBlock());
-  }
 }

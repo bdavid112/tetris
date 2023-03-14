@@ -1,8 +1,9 @@
 let userInput = 0;
 let fastMode = false;
+let rotate = false;
 
 window.addEventListener("keydown", (e) => {
-  switch (e.key) {
+  switch (e.code) {
     case "ArrowLeft":
       userInput = -1;
       break;
@@ -11,6 +12,9 @@ window.addEventListener("keydown", (e) => {
       break;
     case "ArrowDown":
       fastMode = true;
+      break;
+    case "Space":
+      toggleRotate();
       break;
   }
 });
@@ -25,6 +29,14 @@ window.addEventListener("keyup", (e) => {
 
 export function isFastMode() {
   return fastMode;
+}
+
+export function getRotate() {
+  return rotate;
+}
+
+export function toggleRotate() {
+  rotate = !rotate;
 }
 
 export function getUserInput() {
