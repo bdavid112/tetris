@@ -85,6 +85,10 @@ export class Block {
       this.increaseRotation();
       toggleRotate();
       this.setParts(this.type);
+      while (this.hitsBorder() != 0) {
+        console.log("HIT WALL");
+        this.pos.x += -1 * this.hitsBorder() * UNIT_WIDTH;
+      }
     }
     if (blocksOnGround.length > 0) {
       const hitNeighbour = this.hitsNeighbour(blocksOnGround);
@@ -114,7 +118,8 @@ export class Block {
   }
 
   updateX() {
-    if (this.hitsBorder()) return;
+    if (this.hitsBorder() == -1 && getUserInput() == -1) return;
+    if (this.hitsBorder() == 1 && getUserInput() == 1) return;
     if (!this.onGround) {
       this.pos.x += getUserInput() * UNIT_WIDTH;
       setUserInput(0);
@@ -163,16 +168,11 @@ export class Block {
   }
 
   hitsBorder() {
-    let borderHit = false;
+    let borderHit = 0;
     this.getPartPositions().forEach((pos) => {
-      if (getUserInput() === -1 && hit(pos, { x: 0, y: pos.y }))
-        borderHit = true;
-      if (
-        getUserInput() === 1 &&
-        hitRight(pos, { x: CANVAS_WIDTH * UNIT_WIDTH, y: pos.y })
-      ) {
-        console.log("HIT");
-        borderHit = true;
+      if (hit(pos, { x: 0, y: pos.y })) borderHit = -1;
+      if (hitRight(pos, { x: CANVAS_WIDTH * UNIT_WIDTH, y: pos.y })) {
+        borderHit = 1;
       }
     });
     return borderHit;
